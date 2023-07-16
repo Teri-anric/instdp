@@ -1,6 +1,6 @@
 from enum import Enum
 
-class MessageType(Enum):
+class DirectItemType(Enum):
     voice = 'voice_media'
     placeholder = 'placeholder'
     text = 'text'

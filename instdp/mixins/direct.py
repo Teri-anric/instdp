@@ -20,13 +20,13 @@ class DirectMixin:
             elif isinstance(filter, BaseFilter):
                 _filters.append(filter)
             else:
-                raise TypeError("Filter ")
-
+                raise TypeError(f"The filter must be instance BaseFilter or function, not {type(filter)}")
 
         for key_filter, data_filter in kw_filters:
             cls_filter = self._message_filters.get(key_filter, None)
             if cls_filter is None:
-                raise RuntimeError("not ")
+                raise ValueError(f"Not key-word parameter {key_filter}")
+
 
     def message(self, *filters, **kw_filters):
         def decorator(func):

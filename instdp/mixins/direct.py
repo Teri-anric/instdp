@@ -8,7 +8,7 @@ from instagrapi.types import (
     DirectThread,
 )
 
-from instdp.filters import FuncFilter, validate_filter, BaseFilter
+from instdp.filters import FuncFilter, validate_filter, BaseFilter, ExceptionFilter
 from instdp.types import Handler
 from types import FunctionType
 
@@ -19,6 +19,7 @@ class DirectMixin:
         self._is_stop = False
         self._message_handlers: List[Handler] = []
         self._message_kw_filters: Dict[str, Union[type, FunctionType]] = {}
+        self._exception_handlers: List[Handler] = []
         self._context: Dict[str, Any] = {}
 
     def __setitem__(self, key, value):
@@ -51,7 +52,7 @@ class DirectMixin:
         self._message_handlers.append(handler)
         return func
 
-    def filter(self, key: str=None):
+    def filter(self, key: str = None):
         def decorator(func):
             filter = FuncFilter(func)
             if key is None:
@@ -68,13 +69,35 @@ class DirectMixin:
             raise TypeError(f"most be a subclass BaseFilter, not be {cls_filter}")
         self._message_kw_filters[key] = cls_filter
 
+    @property
+    def default_context(self):
+        return {'cl': self._cl, 'client': self._cl, 'dp': self, "dispatcher": self}
+
+
     def handler_notify(self, message: DirectMessage, thread: DirectThread):
-        default_context = {'thread' : thread, 'cl': self._cl, 'client': self._cl, 'dp': self, "dispatcher": self}
         for handler in self._message_handlers:
-            if handler(message, **default_context, **self._context):
-                break;
+            try:
+                if handler(message, thread=thread, **self.default_context, **self._context):
+                    break
+            except Exception as e:
+                self.exception_handler_notify(exception=e, handler=handler, message=message)
 
+    def exception_handler_notify(self, exception: Exception, handler: Handler, message: DirectMessage):
+        for handler in self._exception_handlers:
+            if handler(exception, handler=handler, message=message, **self.default_context, **self._context):
+                break
 
+    def exception_handler(self, exception: type):
+        def decorator(func):
+            self.register_exception_handler(func=func, exception=exception)
+            return func
+
+        return decorator
+
+    def register_exception_handler(self, func, exception: type):
+        filter_ = ExceptionFilter(exception_cls=exception)
+        handler = Handler(func, [filter_])
+        self._exception_handlers.append(handler)
 
     def polling_direct(self, interval: int = 10, selected_filter="unread", auto_seen: bool = True, infinite=True):
         self._is_stop = False

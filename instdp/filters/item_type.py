@@ -11,7 +11,7 @@ class ItemTypeFilter(BaseFilter):
         else:
             self.item_types = item_type
 
-    def check(self, msg: DirectMessage, **kwargs):
+    def check(self, msg: DirectMessage, **kwargs) -> bool:
         if not self.item_types:
             return True
 

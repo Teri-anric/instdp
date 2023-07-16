@@ -5,7 +5,7 @@ class BaseFilter(CallableMixin):
     def __init__(self):
         super().__init__(self.check)
 
-    def check(self, *args, **kwargs):
+    def check(self, *args, **kwargs) -> bool:
         raise NotImplemented("")
 
     def __call__(self, *args, **kwargs):

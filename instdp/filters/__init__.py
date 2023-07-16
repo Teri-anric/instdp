@@ -1,3 +1,3 @@
 from .base import BaseFilter
-from .utils import FuncFilter
+from .utils import FuncFilter, validate_filter
 from .item_type import ItemTypeFilter

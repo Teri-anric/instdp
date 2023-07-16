@@ -1,20 +1,18 @@
 from instagrapi import Client
-from .types.handler import Handler
+from instdp.mixins.direct import DirectMixin
+from instdp.mixins.direct_api import MixinDirectAPI
 
-from instagrapi.extractors import (
-    extract_direct_response
-)
-from instagrapi.types import (
-    DirectMessage,
-    DirectResponse,
-    DirectShortThread,
-    DirectThread,
-    Media,
-)
+class BaseDispatcher:
+    _cl: Client
 
-
-class InstDispatcher:
-    
     def __init__(self, client: Client):
         self._cl = client
         super().__init__()
+
+class DirectDispatcher(BaseDispatcher, DirectMixin, MixinDirectAPI):
+    pass
+
+class InstDispatcher(BaseDispatcher):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._direct = DirectDispatcher(self._cl)

@@ -1,4 +1,5 @@
 import inspect
+from typing import Dict, Any
 
 class CallableMixin:
     def __init__(self, func):

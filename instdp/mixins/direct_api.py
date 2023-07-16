@@ -23,7 +23,7 @@ from instagrapi.types import (
 class MixinDirectAPI:
     _cl: Client
 
-    def seen_message(self, message: DirectMessage) -> DirectResponse:
+    def message_seen(self, message: DirectMessage) -> DirectResponse:
         result = self._cl.private_request(
             f"direct_v2/threads/{message.thread_id}/items/{message.id}/seen/",
             data=self._cl.with_default_data({}),

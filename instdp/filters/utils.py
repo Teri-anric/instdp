@@ -1,4 +1,5 @@
 from .base import BaseFilter
+from types import FunctionType
 
 class FuncFilter(BaseFilter):
     def __init__(self, func):

@@ -18,5 +18,7 @@ class Handler(CallableMixin):
 
 
     def __call__(self, *args, **kwargs):
+        check = self.check(*args, **kwargs)
         if check:
             super().__call__(*args, **kwargs)
+        return check

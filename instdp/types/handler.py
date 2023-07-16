@@ -1,5 +1,6 @@
 from .base import CallableMixin
 
+
 class Handler(CallableMixin):
     def __init__(self, func, filters=None):
         super().__init__(func)
@@ -15,7 +16,6 @@ class Handler(CallableMixin):
             if not event_filter(*args, **kwargs):
                 return False
         return True
-
 
     def __call__(self, *args, **kwargs):
         check = self.check(*args, **kwargs)

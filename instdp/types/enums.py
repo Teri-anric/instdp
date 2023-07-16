@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class DirectItemType(Enum):
     voice = 'voice_media'
     placeholder = 'placeholder'

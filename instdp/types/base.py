@@ -1,6 +1,7 @@
 import inspect
 from typing import Dict, Any
 
+
 class CallableMixin:
     def __init__(self, func):
         self.callback = func
@@ -17,5 +18,3 @@ class CallableMixin:
 
     def __call__(self, *args, **kwargs: Any) -> Any:
         return self.callback(*args, **self._prepare_kwargs(kwargs))
-
-

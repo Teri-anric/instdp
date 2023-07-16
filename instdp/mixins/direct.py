@@ -1,4 +1,5 @@
 import time
+from types import FunctionType
 from typing import Dict, Any
 from typing import List, Union
 
@@ -10,7 +11,7 @@ from instagrapi.types import (
 
 from instdp.filters import FuncFilter, validate_filter, BaseFilter, ExceptionFilter
 from instdp.types import Handler
-from types import FunctionType
+
 
 class DirectMixin:
     _cl: Client
@@ -72,7 +73,6 @@ class DirectMixin:
     @property
     def default_context(self):
         return {'cl': self._cl, 'client': self._cl, 'dp': self, "dispatcher": self}
-
 
     def handler_notify(self, message: DirectMessage, thread: DirectThread):
         for handler in self._message_handlers:

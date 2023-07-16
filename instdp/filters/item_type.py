@@ -3,7 +3,7 @@ from instagrapi.types import DirectMessage
 from instdp.types import DirectItemType
 from typing import Union, List
 
-class ItemType(BaseFilter):
+class ItemTypeFilter(BaseFilter):
     def __init__(self, item_type: Union[List[DirectItemType], DirectItemType]):
         super().__init__()
         if isinstance(self.item_type, str):

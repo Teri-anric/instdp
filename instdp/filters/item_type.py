@@ -2,8 +2,8 @@ from typing import Union, List
 
 from instagrapi.types import DirectMessage
 
-from ..types import DirectItemType
 from .base import BaseFilter
+from ..types import DirectItemType
 
 
 class ItemTypeFilter(BaseFilter):

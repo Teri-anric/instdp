@@ -17,6 +17,6 @@ class DirectDispatcher(BaseDispatcher, DirectMixin, MixinDirectAPI):
 
 
 class InstDispatcher(BaseDispatcher):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, client: Client):
+        super().__init__(client)
         self._direct = DirectDispatcher(self._cl)

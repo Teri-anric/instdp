@@ -3,6 +3,7 @@ from typing import Dict, Any, Callable
 
 CallbackType = Callable[..., Any]
 
+
 class CallableMixin:
     callback: CallbackType
 

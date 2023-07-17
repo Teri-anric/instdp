@@ -1,6 +1,6 @@
 import time
 from types import FunctionType
-from typing import Dict, Any, Type
+from typing import Dict, Any, Type, List
 from typing import List, Union
 
 from instagrapi import Client
@@ -32,7 +32,7 @@ class DirectMixin:
     def __delitem__(self, key):
         self._context.pop(key, None)
 
-    def init_kw_filters(self, kw_filters) -> List[BaseFilter]:
+    def init_kw_filters(self, kw_filters) -> list[FilterObject]:
         filters = []
         for key, data in kw_filters.items():
             cls_filter = self._message_kw_filters.get(key)

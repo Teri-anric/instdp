@@ -1,12 +1,14 @@
-from instdp.types.base import CallableMixin
+import abc
+
+from ..types.base import CallableMixin
 
 
-class BaseFilter(CallableMixin):
-    def __init__(self):
-        super().__init__(self.check)
+class BaseFilter(abc.ABC):
+    
+    @abc.abstractmethod
+    def __call__(self, event, **kwargs):
+        pass
 
-    def check(self, *args, **kwargs) -> bool:
-        raise NotImplemented("")
-
-    def __call__(self, *args, **kwargs):
-        return super().__call__(*args, **kwargs)
+class FilterObject(CallableMixin):
+    def __init__(self, callback: BaseFilter):
+        self.callback = callback

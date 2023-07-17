@@ -11,10 +11,10 @@ classifiers = [
     "Programming Language :: Python :: 3",
 ]
 authors = [
-    {name = "teri_anric", email = "2005ahi2005@gmail.com"}
+    { name = "teri_anric", email = "2005ahi2005@gmail.com" }
 ]
 requires-python = ">=3.8"
-dependencies = {file = "requirements.txt"}
+dependencies = { file = "requirements.txt" }
 #license = {file = "LICENSE"}
 
 [project.urls]
@@ -36,4 +36,4 @@ Repository = "https://github.com/Teri-anric/instdp"
 #my_package = ["py.typed"]
 
 [tool.setuptools.dynamic]
-version = {attr = "instdp.VERSION"}
+version = { attr = "instdp.VERSION" }

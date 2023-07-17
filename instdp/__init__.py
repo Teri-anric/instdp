@@ -1,3 +1,3 @@
-VERSION = "0.0.1"
+from instdp.dispatcher import InstDispatcher, DirectDispatcher
 
-from instdp.dispatcher import InstDispatcher
+VERSION = "0.0.1"

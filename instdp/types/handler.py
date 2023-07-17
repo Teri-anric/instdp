@@ -1,8 +1,17 @@
-from .base import CallableMixin
+from typing import List
+
+from .base import CallableMixin, CallbackType
+from ..filters import BaseFilter
+
+
+class FilterObject(CallableMixin):
+    def __init__(self, callback: BaseFilter):
+        self.callback = callback
+        super().__init__()
 
 
 class Handler(CallableMixin):
-    def __init__(self, callback, filters=None):
+    def __init__(self, callback: CallbackType, filters: List[FilterObject] = None):
         self.callback = callback
         super().__init__()
         self.filters = filters

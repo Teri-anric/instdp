@@ -2,7 +2,7 @@ from typing import Union, List
 
 from instagrapi.types import DirectMessage
 
-from .base import BaseFilter
+from . import BaseFilter
 from ..types import DirectItemType
 
 

@@ -1,6 +1,6 @@
 import time
 from types import FunctionType
-from typing import Dict, Any, Type, List
+from typing import Dict, Any, Type
 from typing import List, Union
 
 from instagrapi import Client
@@ -9,8 +9,9 @@ from instagrapi.types import (
     DirectThread,
 )
 
-from instdp.filters import validate_filter, BaseFilter, ExceptionFilter, FilterObject
+from instdp.filters import validate_filter, BaseFilter, ExceptionFilter
 from instdp.types import Handler
+from instdp.types.handler import FilterObject
 
 
 class DirectMixin:
@@ -94,7 +95,7 @@ class DirectMixin:
         return decorator
 
     def register_exception_handler(self, func, exception: type):
-        filter_ = ExceptionFilter(exception_cls=exception)
+        filter_ = FilterObject(ExceptionFilter(exception_cls=exception))
         handler = Handler(func, [filter_])
         self._exception_handlers.append(handler)
 

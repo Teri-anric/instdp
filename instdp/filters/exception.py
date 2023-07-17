@@ -1,6 +1,6 @@
 from typing import Type, Any
 
-from .base import BaseFilter
+from . import BaseFilter
 
 
 class ExceptionFilter(BaseFilter):

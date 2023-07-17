@@ -1,6 +1,7 @@
 from types import FunctionType
 
-from .base import BaseFilter, FilterObject
+from . import BaseFilter
+from ..types.handler import FilterObject
 
 
 def validate_filter(filter):

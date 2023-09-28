@@ -3,8 +3,8 @@ requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
+dynamic = ["dependencies", "version"]
 name = "instdp"
-dynamic = ["version"]
 #readme = "README.md"
 classifiers = [
     "Development Status :: 1 - Alpha",
@@ -14,8 +14,7 @@ authors = [
     { name = "teri_anric", email = "2005ahi2005@gmail.com" }
 ]
 requires-python = ">=3.8"
-dependencies = { file = "requirements.txt" }
-#license = {file = "LICENSE"}
+
 
 [project.urls]
 Homepage = "https://github.com/Teri-anric/instdp"
@@ -37,3 +36,5 @@ Repository = "https://github.com/Teri-anric/instdp"
 
 [tool.setuptools.dynamic]
 version = { attr = "instdp.VERSION" }
+dependencies = { file = "requirements.txt" }
+#license = {file = "LICENSE"}

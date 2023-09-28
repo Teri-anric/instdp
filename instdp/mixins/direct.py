@@ -70,21 +70,25 @@ class DirectMixin:
             raise TypeError(f"most be a subclass BaseFilter, not be {cls_filter}")
         self._message_kw_filters[key] = cls_filter
 
-    @property
-    def default_context(self):
-        return {'cl': self._cl, 'client': self._cl, 'dp': self, "dispatcher": self}
+    def default_context(self, thread: DirectThread) -> Dict[str, Any]:
+        return {
+                'cl': self._cl, 'client': self._cl,
+                'dp': self, "dispatcher": self,
+                'th': thread, "thread": thread
+                }
 
     def handler_notify(self, message: DirectMessage, thread: DirectThread):
+        event_context = {**self.default_context(thread=thread), **self._context}
         for handler in self._message_handlers:
             try:
-                if handler(message, thread=thread, **self.default_context, **self._context):
+                if handler(message, **event_context):
                     break
             except Exception as e:
-                self.exception_handler_notify(exception=e, handler=handler, message=message)
+                self.exception_handler_notify(exception=e, handler=handler, message=message, context=event_context)
 
-    def exception_handler_notify(self, exception: Exception, handler: Handler, message: DirectMessage):
+    def exception_handler_notify(self, exception: Exception, handler: Handler, message: DirectMessage, context: Dict[str, Any]):
         for handler in self._exception_handlers:
-            if handler(exception, handler=handler, message=message, **self.default_context, **self._context):
+            if handler(exception, handler=handler, message=message, **context):
                 break
 
     def exception_handler(self, exception: type):

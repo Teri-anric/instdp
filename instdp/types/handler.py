@@ -17,7 +17,7 @@ class Handler(CallableMixin):
         self.filters = filters
 
     def register_filter(self, filter_):
-        if not self.filters:
+        if self.filters:
             return self.filters.append(filter_)
         self.filters = [filter_]
 
